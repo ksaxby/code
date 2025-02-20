@@ -425,7 +425,7 @@ cap drop _merge
 	replace age_g2=5 if age0>=55 & age0<=64
 	replace age_g2=6 if age0>=65 & age0<=.
 	
-	desctable age0 i.age_g2 i.male i.educ i.male i.married i.cob_os  i.ehi_quart i.state rural, ///
+	desctable age0 i.age_g2 i.male i.educ i.male i.married i.cob_os  i.ehi_quart i.state rural if wave==22, ///
 	filename($output\desc_wave22) stats(svymean svysemean) group(tgd)
 
 	ta age_g2, gen(age_g2)
@@ -435,12 +435,12 @@ cap drop _merge
 	mean age0 age_g21 age_g22 age_g23 age_g24 age_g25 age_g26 ///
 		 male educ1 educ2 educ3 married cob_os ///
 		 ehi_quart1 ehi_quart2 ehi_quart3 ehi_quart4 ///
-		 rural state1 state2 state3 state4 state5 state6 state7 state8 [pw=sc_weight] if tgd==0
+		 rural state1 state2 state3 state4 state5 state6 state7 state8 [pw=sc_weight] if tgd==0 & wave==22
 	
 	mean age0 age_g21 age_g22 age_g23 age_g24 age_g25 age_g26 ///
 		 male educ1 educ2 educ3 married cob_os ///
 		 ehi_quart1 ehi_quart2 ehi_quart3 ehi_quart4 ///
-		 rural state1 state2 state3 state4 state5 state6 state7 state8 [pw=sc_weight] if tgd==1
+		 rural state1 state2 state3 state4 state5 state6 state7 state8 [pw=sc_weight] if tgd==1 & if wave==22
 	
 	, over(tgd)
 	
